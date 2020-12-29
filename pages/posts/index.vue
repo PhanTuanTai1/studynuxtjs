@@ -1,6 +1,6 @@
 <template>
-  <div class="posts-page">   
-      <PostList :posts="listPosts"/>
+  <div class="posts-page">
+    <PostList :posts="listPosts" />
   </div>
 </template>
 
@@ -13,34 +13,35 @@
 </style>
 
 <script>
-import PostList from '@/components/Posts/PostList.vue'
+import PostList from "@/components/Posts/PostList.vue";
 export default {
-  components:{
-    PostList
+  components: {
+    PostList,
   },
-  asyncData(context, callBack){
-    setTimeout(() => {
-      callBack(null, {
-        listPosts : [
-          {
-            id: 1001,
-            title: "Title post  1001",
-            previewText: "Preview text for post 1001"
-          },
-          {
-            id: 1002,
-            title: "Title post  1002",
-            previewText: "Preview text for post 1002"
-          },
-          {
-            id: 1003,
-            title: "Title post  1003",
-            previewText: "Preview text for post 1003"
-          },
-        ]
-      })
-    }, 1500)
-  }
-}
+  asyncData(context) {
+    return new Promise((resolve, reject) => {
+      var listPosts = [
+        {
+          id: "1001",
+          title: "Title post  1001",
+          previewText: "Preview text for post 1001",
+        },
+        {
+          id: "1002",
+          title: "Title post  1002",
+          previewText: "Preview text for post 1002",
+        },
+        {
+          id: "1003",
+          title: "Title post  1003",
+          previewText: "Preview text for post 1003",
+        },
+      ];
+      resolve({listPosts});
+    }).then(data => {
+      return data;
+    });
+  },
+};
 </script>
 
