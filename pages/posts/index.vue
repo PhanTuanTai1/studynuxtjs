@@ -42,6 +42,9 @@ export default {
       return data;
     });
   },
+  created () {
+    this.$store.dispatch('setPosts', this.listPosts);
+  }
 };
 </script>
 
