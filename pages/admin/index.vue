@@ -15,41 +15,18 @@
 <script>
 import PostList from "@/components/Posts/PostList";
 import AppButton from "@/components/UI/AppButton";
+import {mapGetters} from "vuex";
 export default {
-  asyncData(context, callback) {
-    setTimeout(() => {
-      callback(null, {
-        loadedPosts: [
-          {
-            id: 1,
-            title: "First Post",
-            previewText: "This is our first post",
-          },
-          {
-            id: 2,
-            title: "Second Post",
-            previewText: "This is our Second post",
-          },
-          {
-            id: 3,
-            title: "Third Post",
-            previewText: "This is our Third post",
-          },
-        ],
-      });
-    }, 1500);
-  },
-  created() {},
-  // data () {
-  //   return {
-  //     loadedPosts:[]
-  //   }
-  // },
   layout: "admin",
   components: {
     PostList,
     AppButton,
   },
+  computed:{
+    ...mapGetters([
+      'loadedPosts'
+    ])
+  }
 };
 </script>
 
