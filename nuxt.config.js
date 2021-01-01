@@ -1,10 +1,10 @@
 export default {
-  mode: 'srr',
+  mode: 'ssr',
   /*
    ** Headers of the page
    */
   head: {
-    title: process.env.npm_package_name || '',
+    title: "Nuxt JS Course",
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },

@@ -8,20 +8,24 @@
 
 <script>
 import AdminPostForm from "@/components/Admin/AdminPostForm";
+import axios from "axios";
 export default {
-  data() {
-    return {
-      loadedPost: {
-        author: "Tai",
-        title: "My awesome Post",
-        content: "Super amazing, thanks for that!",
-        thumnailLink: "",
-      },
-    };
+  asyncData(context) {
+    return axios
+      .get(
+        "https://backendfornuxtjs-default-rtdb.firebaseio.com/posts/" +
+          context.params.postId +
+          ".json"
+      )
+      .then((Response) => {
+        return {
+          loadedPost: Response.data
+        };
+      });
   },
   components: {
     AdminPostForm,
   },
-  layout: 'admin'
+  layout: "admin",
 };
 </script>

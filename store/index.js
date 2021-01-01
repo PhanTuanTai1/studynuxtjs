@@ -1,4 +1,5 @@
 import Vuex from "vuex";
+import axios from "axios";
 
 const createStore = () => {
   return new Vuex.Store({
@@ -9,33 +10,30 @@ const createStore = () => {
       setPosts(state, posts) {
         state.loadedPosts = posts;
       },
+      addPost(state, post){
+        state.loadedPosts.push(post);
+      }
     },
     actions: {
-      nuxtServerInit({ commit }, context) {
-        return new Promise((resolve, reject) => {
-          commit("setPosts", [
-            {
-              id: "1001",
-              title: "Title post  1001",
-              previewText: "Preview text for post 1001",
-            },
-            {
-              id: "1002",
-              title: "Title post  1002",
-              previewText: "Preview text for post 1002",
-            },
-            {
-              id: "1003",
-              title: "Title post  1003",
-              previewText: "Preview text for post 1003",
-            },
-          ]);
-          resolve();
-        });
+      nuxtServerInit(vuexContext, context) {
+        return axios.get("https://backendfornuxtjs-default-rtdb.firebaseio.com/posts.json")
+        .then(Response => {
+          const postsArray = [];
+
+          for(const key in Response.data){
+            postsArray.push({...Response.data[key], id : key});
+          }
+
+          vuexContext.commit('setPosts', postsArray);
+        })
+        .catch(e => context.error(e));
       },
       setPosts(vuexContext, posts) {
         vuexContext.commit("setPosts", posts);
       },
+      UpdateListPost(vuexContent, post){
+        vuexContent.commit("addPost", post);
+      }
     },
     getters: {
       loadedPosts(state) {

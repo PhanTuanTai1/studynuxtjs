@@ -15,20 +15,18 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
-  asyncData(context, callback){
-    setTimeout(() => {
-      callback(null, {
-        post: {
-            id: 1001,
-            title: "Title post  (Id: " + context.route.params.id + ")",
-            previewText: "Preview text for post 1001",
-            author: "Tai",
-            updatedDate: new Date(),
-            content: 'Some dummy text'
-          }
-      })
-    }, 1000)
+  asyncData(context){
+    return axios.get("https://backendfornuxtjs-default-rtdb.firebaseio.com/posts/" + context.params.id + ".json")
+    .then(Response => {
+      //alert(Response.data);
+      return {
+        post: Response.data
+      }
+    })
+    .catch(e => context.error(e));
   }
 }
 </script>

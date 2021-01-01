@@ -5,6 +5,7 @@
           :is-admin="isAdmin" 
           :id="post.id" 
           :title="post.title" 
+          :thumbnail="post.thumbnail"
           :previewText="post.previewText"/>
     </section>
 </template>

@@ -2,7 +2,7 @@
     <div>
          <nuxt-link :to="postLink">
             <article class="post-preview">
-              <div class="post-thumbnail"></div>
+              <div class="post-thumbnail" :style="'background-image: url(' + thumbnail + ')'"></div>
               <div class="post-content">
                 <h1>{{title}}</h1>
                 <p>{{previewText}}</p>
