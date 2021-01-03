@@ -9,25 +9,22 @@
 <script>
 import AdminPostForm from "@/components/Admin/AdminPostForm";
 import axios from "axios";
+import {mapActions} from "vuex";
 export default {
   methods: {
-    onSubmitted(editedPost){
-      axios.put("https://backendfornuxtjs-default-rtdb.firebaseio.com/posts/" + this.$route.params.postId + ".json", editedPost)
-      .then(res => console.log(res))
+   ...mapActions(["editPost"]),
+    async onSubmitted(editedPost){
+      console.log(editedPost);
+      await this.editPost(editedPost);
+      this.$router.push("/admin");
     }
   },
   asyncData(context) {
-    return axios
-      .get(
-        "https://backendfornuxtjs-default-rtdb.firebaseio.com/posts/" +
-          context.params.postId +
-          ".json"
-      )
-      .then((Response) => {
+    return axios.get("https://backendfornuxtjs-default-rtdb.firebaseio.com/posts/" + context.params.postId + ".json").then((Response) => {
         return {
-          loadedPost: Response.data
+          loadedPost:{...  Response.data, id: context.params.postId}
         };
-      });
+    });
   },
   components: {
     AdminPostForm,

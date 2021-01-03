@@ -15,16 +15,10 @@ export default {
     AdminPostForm,
   },
   methods: {
-    ...mapActions(["UpdateListPost"]),
-    onSubmitted(postData) {
-      axios
-        .post(
-          "https://backendfornuxtjs-default-rtdb.firebaseio.com/posts.json",
-          { ...postData, updatedDate: new Date() }
-        )
-        .then((res) => {
-          this.UpdateListPost(postData);
-        });
+    ...mapActions(["addPost"]),
+    async onSubmitted(postData) {
+      await this.addPost(postData);
+      this.$router.push("/admin");
     },
   },
   layout: "admin",
