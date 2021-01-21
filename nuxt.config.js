@@ -1,5 +1,5 @@
 export default {
-  mode: 'ssr',
+  mode: 'universal',
   /*
    ** Headers of the page
    */
@@ -19,11 +19,17 @@ export default {
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: '#fff' },
+  loading: { color: '#fa923f', height:'4px',duration:5000 },
+  loadingIndicator:{
+    name:'circle',
+    color:'#fa923f'
+  },
   /*
    ** Global CSS
    */
-  css: [],
+  css: [
+    '~assets/styles/main.css'
+  ],
   /*
    ** Plugins to load before mounting the App
    */
@@ -31,7 +37,15 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: [],
+  modules: [
+    '@nuxtjs/axios'
+  ],
+  env:{
+    firebaseApiKey : 'AIzaSyAFpYynhsGbPJWM5DXTJAGdu05sTsNn100'
+  },
+  axios:{
+    baseURL: ''
+  },
   /*
    ** Build configuration
    */
@@ -41,4 +55,8 @@ export default {
      */
     extend(config, ctx) {},
   },
+  transition:{
+    name: 'fade',
+    mode: 'out-in'
+  }
 };
